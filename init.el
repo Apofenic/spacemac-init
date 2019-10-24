@@ -212,7 +212,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -257,7 +257,7 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Source Code Pro Medium" :size 14.0 
+   dotspacemacs-default-font '("Source Code Pro for Powerline" :size 14.0 
                                :weight normal 
                                :width normal)
    ;; The leader key (default "SPC")
@@ -340,7 +340,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
    ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
    ;; borderless fullscreen. (default nil)
-   dotspacemacs-undecorated-at-startup t
+   dotspacemacs-undecorated-at-startup nil
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -468,7 +468,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq default-frame-alist '((font . "Source Code Pro Medium-14")(toggle-scroll-bar -1))) ;; set default font for emacs --daemon / emacsclient
+  ;; (setq default-frame-alist '((font . "Source Code Pro Medium-14")(toggle-scroll-bar -1))) ;; set default font for emacs --daemon / emacsclient
   
 
   (setq create-lockfiles nil)
@@ -488,9 +488,9 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-  (setq default-frame-alist '((font . "Source Code Pro Medium-14")
-                              (fullscreen . fullboth)
-                              (fullscreen-restore . fullheight))) ;; set default font for emacs --daemon / emacsclient
+  ;; (setq default-frame-alist '((font . "Source Code Pro Medium-14")
+  ;;                             (fullscreen . fullboth)
+  ;;                             (fullscreen-restore . fullheight))) ;; set default font for emacs --daemon / emacsclient
 
   (eval-after-load 'flycheck
     '(flycheck-add-mode 'html-tidy 'web-mode))
