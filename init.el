@@ -33,63 +33,6 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      nginx
-     csv
-     markdown
-     node
-     auto-completion
-     ;; better-defaults semantic emacs-lisp
-     git
-     ivy
-     ;; helm markdown multiple-cursors
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     syntax-checking
-     lsp
-     ;; treemacs
-     (javascript :variables
-                 node-add-modules-path t
-                 javascript-backend 'lsp)
-     (typescript :variables
-                 node-add-modules-path t
-                 ;; typescript-backend 'lsp
-;; -*- mode: emacs-lisp; lexical-binding: t -*-
-;; This file is loaded by Spacemacs at startup.
-;; It must be stored in your home directory.
-
-(defun dotspacemacs/layers () 
-  "Layer configuration:
-This function should only modify configuration layer settings."
-  (setq-default
-   ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
-   ;; or `spacemacs'. (default 'spacemacs)
-   dotspacemacs-distribution 'spacemacs
-
-   ;; Lazy installation of layers (i.e. layers are installed only when a file
-   ;; with a supported type is opened). Possible values are `all', `unused'
-   ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
-   ;; not listed in variable `dotspacemacs-configuration-layers'), `all' will
-   ;; lazy install any layer that support lazy installation even the layers
-   ;; listed in `dotspacemacs-configuration-layers'. `nil' disable the lazy
-   ;; installation feature and you have to explicitly list a layer in the
-   ;; variable `dotspacemacs-configuration-layers' to install it.
-   ;; (default 'unused) dotspacemacs-enable-lazy-installation 'unused
-   ;; If non-nil then Spacemacs will ask for confirmation before installing
-   ;; a layer lazily. (default t) dotspacemacs-ask-for-lazy-installation t
-   ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load.
-   dotspacemacs-configuration-layers
-   '(;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
-     ;; `M-m f e R' (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     nginx
      docker
      csv
      markdown
@@ -105,7 +48,7 @@ This function should only modify configuration layer settings."
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
-     lsp
+
      (javascript :variables
                  node-add-modules-path t)
      (typescript :variables
@@ -257,7 +200,7 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Source Code Pro for Powerline" :size 14.0 
+   dotspacemacs-default-font '("Source Code Pro for Powerline" :size 15 
                                :weight normal 
                                :width normal)
    ;; The leader key (default "SPC")
@@ -332,15 +275,15 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-fullscreen-at-startup nil
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native t
+   dotspacemacs-fullscreen-use-non-native nil
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   dotspacemacs-maximized-at-startup nil
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
    ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
    ;; borderless fullscreen. (default nil)
-   dotspacemacs-undecorated-at-startup nil
+   dotspacemacs-undecorated-at-startup nil 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -468,7 +411,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; (setq default-frame-alist '((font . "Source Code Pro Medium-14")(toggle-scroll-bar -1))) ;; set default font for emacs --daemon / emacsclient
+  ;; (setq default-frame-alist '((font . "Source Code Pro for Powerline-14")(toggle-scroll-bar -1))) ;; set default font for emacs --daemon / emacsclient
   
 
   (setq create-lockfiles nil)
@@ -488,7 +431,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-  ;; (setq default-frame-alist '((font . "Source Code Pro Medium-14")
+  ;; (setq default-frame-alist '((font . "Source Code Pro for Powerline-14")
   ;;                             (fullscreen . fullboth)
   ;;                             (fullscreen-restore . fullheight))) ;; set default font for emacs --daemon / emacsclient
 
