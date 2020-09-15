@@ -27,13 +27,12 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(;; ----------------------------------------------------------------
+   '(go
+     ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     nginx
-     docker
      csv
      markdown
      node
@@ -44,6 +43,11 @@ This function should only modify configuration layer settings."
      (javascript :variables
                  node-add-modules-path t)
      (typescript :variables
+                 typescript-fmt-on-save t
+                 typescript-fmt-tool 'prettier
+                 typescript-linter 'eslint
+                 typescript-backend 'tide
+                 typescript-lsp-linter nil
                  node-add-modules-path t)
      version-control
      themes-megapack
@@ -55,6 +59,13 @@ This function should only modify configuration layer settings."
      react
      prettier
      html
+     xkcd
+     copy-as-format
+     spacemacs-editing-visual
+     spotify
+     (lsp :variables
+          lsp-navigation 'simple
+          lsp-ui-doc-enable nil)
      ;; elixir
      ;; erlang
      ;; helm markdown multiple-cursors
@@ -201,7 +212,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro for Powerline Medium"
-                               :size 15
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -450,7 +461,7 @@ before packages are loaded."
   ;;      (add-hook 'typescript-jsx-mode-hook #'prettier-js-mode)))
   
   (setq-default evil-kill-on-visual-paste nil)
-  (setq flycheck-idle-change-delay 5)
+  ;; (setq flycheck-idle-change-delay 1)
   ;; https://github.com/syl20bnr/spacemacs/issues/8206#issuecomment-392347981
   ;; (defun rjsx-hybrid-keybindings ()
   ;;   "Bind C-d to `rjsx-delete-creates-full-tag'."
@@ -499,12 +510,11 @@ before packages are loaded."
   ;; (add-hook 'typescript-tsx-mode-hook 'lsp-typescript-enable)
   ;; (setf (lsp-session-folders-blacklist (lsp-session)) nil)
   ;; (lsp--persist-session (lsp-session))
-  
   (defun save-all ()
     (interactive)
     (save-some-buffers t))
 
-  (add-hook 'focus-out-hook 'save-all)
+  ;; (add-hook 'focus-out-hook 'save-all)
 
   (require 'key-chord)
   (key-chord-mode t)
@@ -512,22 +522,22 @@ before packages are loaded."
   (key-chord-define-global "JK" 'evil-normal-state)
 
   (windmove-default-keybindings 'super)
-  (progn
+  ;; (progn
     ;; automatically save buffers associated with files on buffer switch
     ;; and on windows switch
-    (defadvice switch-to-buffer (before save-buffer-now activate)
-      (when buffer-file-name (save-buffer)))
-    (defadvice other-window (before other-window-now activate)
-      (when buffer-file-name (save-buffer)))
-    (defadvice windmove-up (before other-window-now activate)
-      (when buffer-file-name (save-buffer)))
-    (defadvice windmove-down (before other-window-now activate)
-      (when buffer-file-name (save-buffer)))
-    (defadvice windmove-left (before other-window-now activate)
-      (when buffer-file-name (save-buffer)))
-    (defadvice windmove-right (before other-window-now activate)
-      (when buffer-file-name (save-buffer)))
-    )
+    ;; (defadvice switch-to-buffer (before save-buffer-now activate)
+    ;;   (when buffer-file-name (save-buffer)))
+    ;; (defadvice other-window (before other-window-now activate)
+    ;;   (when buffer-file-name (save-buffer)))
+    ;; (defadvice windmove-up (before other-window-now activate)
+    ;;   (when buffer-file-name (save-buffer)))
+    ;; (defadvice windmove-down (before other-window-now activate)
+    ;;   (when buffer-file-name (save-buffer)))
+    ;; (defadvice windmove-left (before other-window-now activate)
+    ;;   (when buffer-file-name (save-buffer)))
+    ;; (defadvice windmove-right (before other-window-now activate)
+    ;;   (when buffer-file-name (save-buffer)))
+    ;; )
 
   (global-set-key (kbd "M-{") 'insert-pair)
   (global-set-key (kbd "M-[") 'insert-pair)
@@ -557,9 +567,10 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ ;; '(flycheck-typescript-tslint-config "tsConfig.json")
  '(package-selected-packages
    (quote
-    (nginx-mode pcap-mode csv-mode elisp-format vmd-mode mmm-mode markdown-toc markdown-mode gh-md zenburn-theme zen-and-art-theme yasnippet-snippets yaml-mode ws-butler writeroom-mode winum white-sand-theme which-key wgrep web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-projectile treemacs-evil toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme symon symbol-overlay sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex seti-theme rjsx-mode reverse-theme reveal-in-osx-finder restart-emacs request rebecca-theme rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme purple-haze-theme professional-theme prettier-js popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox overseer osx-trash osx-dictionary osx-clipboard organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-elixir nodejs-repl noctilux-theme naquadah-theme nameless mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode link-hint light-soap-theme launchctl key-chord kaolin-themes json-navigator json-mode js2-refactor js-doc jbeans-theme jazz-theme ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ir-black-theme inkpot-theme indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio git-gutter-fringe git-gutter-fringe+ gandalf-theme fuzzy font-lock+ flycheck-pos-tip flycheck-package flycheck-mix flycheck-credo flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme erlang emojify emoji-cheat-sheet-plus elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-themes doom-modeline django-theme diminish diff-hl devdocs darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme counsel-projectile company-tern company-statistics company-emoji column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode clues-theme clean-aindent-mode chocolate-theme cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile atom-one-dark-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes alchemist aggressive-indent afternoon-theme ace-link ac-ispell))))
+    (helm-gtags godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc ggtags flycheck-golangci-lint counsel-gtags company-go go-mode zenburn-theme zen-and-art-theme yaml-mode ws-butler winum white-sand-theme which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tide typescript-mode tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex smeargle slim-mode seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs request rebecca-theme rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme nginx-mode neotree naquadah-theme mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme lush-theme lorem-ipsum livid-mode linum-relative link-hint light-soap-theme launchctl key-chord js2-refactor js-doc jbeans-theme jazz-theme ivy-hydra ir-black-theme inkpot-theme indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme emoji-cheat-sheet-plus emmet-mode elisp-format dumb-jump dracula-theme doom-themes dockerfile-mode docker django-theme diminish diff-hl darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode counsel-projectile company-web company-tern company-statistics company-emoji column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-key badwolf-theme auto-yasnippet auto-highlight-symbol apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
